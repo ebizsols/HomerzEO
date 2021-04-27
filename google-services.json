@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "397322686352",
+    "project_id": "eohomerz",
+    "storage_bucket": "eohomerz.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:397322686352:android:a1223f1645e4ed7908ed15",
+        "android_client_info": {
+          "package_name": "homerz.online.eateries"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "397322686352-prra22a9adu08i5e54ge810idmf938ho.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "homerz.online.eateries",
+            "certificate_hash": "057de0b0100c4339317e95deb7beecdf3c8381ea"
+          }
+        },
+        {
+          "client_id": "397322686352-0ndq00h74sft179pbqtd9ko8d88patv7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7lpUZWtm1FGt0enY0FkQThC9hIclHgCQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "397322686352-0ndq00h74sft179pbqtd9ko8d88patv7.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "397322686352-9v8t6hqrmrvp6b8rin2q4tuaj02ive2d.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "homerz.online.eateries"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

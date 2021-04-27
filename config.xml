@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" xmlns:android="http://schemas.android.com/apk/res/android" id="homerz.online.eateries" versionCode="1.8.4" version="1.8.4">
+  <name>Eateries Online Homerz</name>
+  <description>
+        Driver All for Eateries Online
+    </description>
+  <author email="eateries.online@gmail.com" href="https://eateries.online/driver">
+        eateries.online
+    </author>
+  <content src="index.html"/>
+  <preference name="AndroidXEnabled" value="true"/>
+  <preference name="android-minSdkVersion" value="22"/>
+  <preference name="android-targetSdkVersion" value="29"/>
+  <allow-navigation href="*"/>
+  <allow-intent href="itms:*"/>
+  <allow-intent href="itms-apps:*"/>
+  <gap:config-file platform="android" parent="/manifest">
+    <supports-screens android:xlargeScreens="true" android:largeScreens="true" android:smallScreens="true"/>
+    <application android:theme="@android:style/Theme.NoTitleBar">
+        </application>
+  </gap:config-file>
+  <platform name="ios">
+    <config-file parent="UIBackgroundModes" target="*-Info.plist">
+      <array>
+        <string>fetch</string>
+      </array>
+      <array>
+        <string>location</string>
+      </array>
+      <array>
+        <string>processing</string>
+      </array>
+    </config-file>
+    <config-file platform="ios" target="*-Info.plist" parent="NSLocationAlwaysUsageDescription">
+      <string>This allows us to use your location to provide you a nearby restaurant, and to facilitate more accurately, keeping you in the loop about Homerz App.</string>
+    </config-file>
+    <config-file platform="ios" target="*-Info.plist" parent="NSLocationWhenInUseUsageDescription">
+      <string>This allows us to use your location to provide you a nearby restaurant, and to facilitate more accurately, keeping you in the loop about Homerz App.</string>
+    </config-file>
+    <preference name="orientation" value="portrait"/>
+    <edit-config target="NSCameraUsageDescription" file="*-Info.plist" mode="merge">
+      <string>Enable Homerz App to access your camera to take photos of you and to save as profile picture.</string>
+    </edit-config>
+    <edit-config target="NSPhotoLibraryUsageDescription" file="*-Info.plist" mode="merge">
+      <string>Enable Homerz App to access your photo library to get pictures from there.</string>
+    </edit-config>
+    <edit-config target="NSLocationWhenInUseUsageDescription" file="*-Info.plist" mode="merge">
+      <string>This allows us to use your location to find restaurant nearby.</string>
+    </edit-config>
+    <edit-config target="NSLocationAlwaysAndWhenInUseUsageDescription" file="*-Info.plist" mode="merge">
+      <string>This allows us to use your location to provide you a nearby restaurant, and to facilitate more accurately, keeping you in the loop about Homerz App.</string>
+    </edit-config>
+    <edit-config target="NSLocationAlwaysUsageDescription" file="*-Info.plist" mode="merge">
+      <string>This allows us to use your location to find restaurant nearby.</string>
+    </edit-config>
+    <edit-config target="NSPhotoLibraryAddUsageDescription" file="*-Info.plist" mode="merge">
+      <string>Enable Homerz App to access your photo library to save pictures there.</string>
+    </edit-config>
+    <edit-config target="NSMicrophoneUsageDescription" file="*-Info.plist" mode="merge">
+      <string>need microphone access to record sounds</string>
+    </edit-config>
+    <edit-config target="NSBluetoothAlwaysUsageDescription" file="*-Info.plist" mode="merge">
+      <string>Improve location accuracy when finding nearby restaurant</string>
+    </edit-config>
+    <edit-config target="NSBluetoothPeripheralUsageDescription" file="*-Info.plist" mode="merge">
+      <string>Improve location accuracy when finding nearby restaurant</string>
+    </edit-config>
+    <edit-config target="NSContactsUsageDescription" file="*-Info.plist" mode="merge">
+      <string>Need access to your contacts</string>
+    </edit-config>
+    <edit-config target="NSCalendarsUsageDescription" file="*-Info.plist" mode="merge">
+      <string>Need acces to calendar</string>
+    </edit-config>
+    <edit-config target="NSMotionUsageDescription" file="*-Info.plist" mode="merge">
+      <string>Improve location accuracy when finding nearby restaurant</string>
+    </edit-config>
+  </platform>
+  <platform name="android">
+    <config-file parent="/manifest/application" target="app/src/main/AndroidManifest.xml">
+      <meta-data android:name="com.transistorsoft.locationmanager.license_key" android:value="YOUR_LICENSE_KEY_HERE"/>
+    </config-file>
+    <config-file target="AndroidManifest.xml" parent="/manifest">
+      <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+      <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+      <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+      <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
+      <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION"/>
+      <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION"/>
+    </config-file>
+    <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application">
+      <application android:usesCleartextTraffic="true"/>
+    </edit-config>
+    <config-file target="AndroidManifest.xml" parent="/*/application">
+      <uses-library android:name="org.apache.http.legacy" android:required="true"/>
+    </config-file>
+    <resource-file src="res/icons/android/drawable-hdpi-icon.png" target="app/src/main/res/mipmap/icon.png"/>
+    <resource-file src="res/icons/android/drawable-hdpi-icon.png" target="app/src/main/res/raw/mipmap/icon.png"/>
+    <resource-file src="www/sounds/neworder.mp3" target="app/src/main/res/raw/neworder.mp3"/>
+    <resource-file src="google-services.json" target="google-services.json"/>
+    <resource-file src="google-services.json" target="app/google-services.json"/>
+    <icon density="ldpi" src="res/icons/android/drawable-ldpi-icon.png"/>
+    <icon density="mdpi" src="res/icons/android/drawable-mdpi-icon.png"/>
+    <icon density="hdpi" src="res/icons/android/drawable-hdpi-icon.png"/>
+    <icon density="xhdpi" src="res/icons/android/drawable-xhdpi-icon.png"/>
+    <icon density="xxhdpi" src="res/icons/android/drawable-xxhdpi-icon.png"/>
+    <icon density="xxxhdpi" src="res/icons/android/drawable-xxxhdpi-icon.png"/>
+    <splash density="land-ldpi" src="res/screens/android/drawable-land-ldpi-screen.png"/>
+    <splash density="land-mdpi" src="res/screens/android/drawable-land-mdpi-screen.png"/>
+    <splash density="land-hdpi" src="res/screens/android/drawable-land-hdpi-screen.png"/>
+    <splash density="land-xhdpi" src="res/screens/android/drawable-land-xhdpi-screen.png"/>
+    <splash density="land-xxhdpi" src="res/screens/android/drawable-land-xxhdpi-screen.png"/>
+    <splash density="land-xxxhdpi" src="res/screens/android/drawable-land-xxxhdpi-screen.png"/>
+    <splash density="port-ldpi" src="res/screens/android/drawable-port-ldpi-screen.png"/>
+    <splash density="port-mdpi" src="res/screens/android/drawable-port-mdpi-screen.png"/>
+    <splash density="port-hdpi" src="res/screens/android/drawable-port-hdpi-screen.png"/>
+    <splash density="port-xhdpi" src="res/screens/android/drawable-port-xhdpi-screen.png"/>
+    <splash density="port-xxhdpi" src="res/screens/android/drawable-port-xxhdpi-screen.png"/>
+    <splash density="port-xxxhdpi" src="res/screens/android/drawable-port-xxxhdpi-screen.png"/>
+    <preference name="AndroidXEnabled" value="true"/>
+  </platform>
+  <platform name="ios">
+    <allow-intent href="tel:*"/>
+    <resource-file src="www/sounds/neworder.mp3"/>
+    <preference name="WKWebViewOnly" value="true"/>
+    <feature name="CDVWKWebViewEngine">
+      <param name="ios-package" value="CDVWKWebViewEngine"/>
+    </feature>
+    <preference name="CordovaWebViewEngine" value="CDVWKWebViewEngine"/>
+    <preference name="scheme" value="monaca-app"/>
+    <preference name="hostname" value="localhost"/>
+    <icon height="20" platform="ios" src="res/icons/ios/icon-20.png" width="20"/>
+    <icon height="57" platform="ios" src="res/icons/ios/icon.png" width="57"/>
+    <icon height="114" platform="ios" src="res/icons/ios/icon@2x.png" width="114"/>
+    <icon height="40" platform="ios" src="res/icons/ios/icon-40.png" width="40"/>
+    <icon height="80" platform="ios" src="res/icons/ios/icon-40@2x.png" width="80"/>
+    <icon height="50" platform="ios" src="res/icons/ios/icon-50.png" width="50"/>
+    <icon height="100" platform="ios" src="res/icons/ios/icon-50@2x.png" width="100"/>
+    <icon height="60" platform="ios" src="res/icons/ios/icon-60.png" width="60"/>
+    <icon height="120" platform="ios" src="res/icons/ios/icon-60@2x.png" width="120"/>
+    <icon height="180" platform="ios" src="res/icons/ios/icon-60@3x.png" width="180"/>
+    <icon height="72" platform="ios" src="res/icons/ios/icon-72.png" width="72"/>
+    <icon height="144" platform="ios" src="res/icons/ios/icon-72@2x.png" width="144"/>
+    <icon height="76" platform="ios" src="res/icons/ios/icon-76.png" width="76"/>
+    <icon height="152" platform="ios" src="res/icons/ios/icon-76@2x.png" width="152"/>
+    <icon height="29" platform="ios" src="res/icons/ios/icon-small.png" width="29"/>
+    <icon height="58" platform="ios" src="res/icons/ios/icon-small@2x.png" width="58"/>
+    <icon height="87" platform="ios" src="res/icons/ios/icon-small@3x.png" width="87"/>
+    <icon height="1024" platform="ios" src="res/icons/ios/icon-1024.png" width="1024"/>
+    <icon height="167" platform="ios" src="res/icons/ios/icon-83.5@2x.png" width="167"/>
+    <splash src="res/screens/ios/Default@2x~universal~anyany.png"/>
+    <splash src="res/screens/ios/Default~iphone.png" width="320" height="480"/>
+    <splash src="res/screens/ios/Default@2x~iphone.png" width="640" height="960"/>
+    <splash src="res/screens/ios/Default-568h@2x~iphone.png" width="640" height="1136"/>
+    <splash src="res/screens/ios/Default-667h.png" width="750" height="1334"/>
+    <splash src="res/screens/ios/Default-736h.png" width="1242" height="2208"/>
+    <splash src="res/screens/ios/Default-Landscape-736h.png" width="2208" height="1242"/>
+    <splash src="res/screens/ios/Default-Portrait~ipad.png" width="768" height="1024"/>
+    <splash src="res/screens/ios/Default-Landscape~ipad.png" width="1024" height="768"/>
+    <splash src="res/screens/ios/Default-Portrait@2x~ipad.png" width="1536" height="2048"/>
+    <splash src="res/screens/ios/Default-Landscape@2x~ipad.png" width="2048" height="1536"/>
+  </platform>
+  <preference name="WindowsStorePublisherName" value="My Name"/>
+  <preference name="WindowsStoreIdentityName" value="784321d4-bab8-3957-d0a2-426559520ecc"/>
+  <preference name="ios-XCBuildConfiguration-TARGETED_DEVICE_FAMILY" value="1"/>
+  <preference name="AutoHideSplashScreen" value="false"/>
+  <preference name="FadeSplashScreen" value="false"/>
+  <preference name="ShowSplashScreenSpinner" value="false"/>
+  <allow-intent href="tel:*"/>
+  <preference name="EnableViewportScale" value="false"/>
+  <access origin="*"/>
+  <access origin="tel:*"/>
+  <preference name="KeepRunning" value="true"/>
+  <preference name="monaca:AndroidIsPackageNameSeparate" value="false"/>
+  <preference name="DisallowOverscroll" value="true"/>
+  <preference name="Orientation" value="default"/>
+  <preference name="SplashScreenDelay" value="0"/>
+  <preference name="Fullscreen" value="false"/>
+</widget>

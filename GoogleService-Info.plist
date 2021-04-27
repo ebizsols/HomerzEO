@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>397322686352-9v8t6hqrmrvp6b8rin2q4tuaj02ive2d.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.397322686352-9v8t6hqrmrvp6b8rin2q4tuaj02ive2d</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>397322686352-prra22a9adu08i5e54ge810idmf938ho.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAKuXLyNHMG_MPJMdVo3W-sWLIb6Sr9op4</string>
+	<key>GCM_SENDER_ID</key>
+	<string>397322686352</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>homerz.online.eateries</string>
+	<key>PROJECT_ID</key>
+	<string>eohomerz</string>
+	<key>STORAGE_BUCKET</key>
+	<string>eohomerz.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:397322686352:ios:3676598fbcced59708ed15</string>
+</dict>
+</plist>
