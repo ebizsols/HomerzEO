@@ -235,7 +235,9 @@ function formatTaskDetails(data)
 	             html+='<ons-icon icon="ion-ios-telephone" size="20px"></ons-icon>';
 	             html+='</div>';
 	             html+='<div class="col">';	             
-	             html+='<p><a class="tel" onclick="externalPhoneCall('+ q(data.contact_number) +')">'+data.contact_number+'</a></p>';
+	             /*html+='<p><a class="tel" onclick="externalPhoneCall('+ q(data.contact_number) +')">'+data.contact_number+'</a></p>';*/
+	             html+='<p><a href="tel:'+ q(data.contact_number) +'" class="tel" >'+data.contact_number+'</a></p>';
+	             
 	             html+='</div>';
 	          html+='</div>     ';   
           } 
@@ -841,7 +843,9 @@ function pickupDetails(data)
 	             html+='</div>';
 	             html+='<div class="col">';
 	 
-	             html+='<p><a class="tel" onclick="externalPhoneCall('+ q(data.dropoff_contact_number) +')" >'+data.dropoff_contact_number+'</a></p>';
+	             /*html+='<p><a class="tel" onclick="externalPhoneCall('+ q(data.dropoff_contact_number) +')" >'+data.dropoff_contact_number+'</a></p>';*/
+	             
+	             html+='<p><a href="tel:'+ q(data.dropoff_contact_number)+'" >'+data.dropoff_contact_number+'</a></p>';
 	             
 	             html+='</div>';
 	         html+='</div>';     

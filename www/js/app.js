@@ -563,6 +563,13 @@ document.addEventListener("init", function(event) {
     	     $("#"+ page_id + " .page_next").val( page.data.page_next );
 						  			
 			break;
+						
+			case "delivery_verification_code":			  
+			  $("#delivery_verification_code .task_id").val( page.data.task_id );			  			 
+			  setTimeout(function() {
+				document.getElementById("verification_code")._input.focus(); 			  
+		      }, 500 );
+			break;
 			
 			 	 
 	 } /*end switch*/
@@ -571,6 +578,20 @@ document.addEventListener("init", function(event) {
 	 
 }, false);
 
+
+document.addEventListener('postpop', function(event) {
+	$current_page = document.querySelector('ons-navigator').topPage.id
+	dump("postpop");
+	dump("postpop=>"+$current_page);
+	
+	switch($current_page){
+		case "taskDetails":		  
+		  callAjax("TaskDetails",'task_id=' + $(".task_id_details").val() );
+		break;
+	}
+	
+});
+/*end postpop*/
 
 function autoLogin()
 {
@@ -772,7 +793,7 @@ function callAjax(action,params)
 		   			//show signature
 		   			
 		   			$("#task-action-wrap").html( 
-		   			  swicthButtonAction( data.details.task_id, data.details.status_raw )
+		   			  swicthButtonAction( data.details.task_id, data.details.status_raw , data.details )
 		   			);
 		   			
 		   			$(".task_id_global").val( data.details.task_id );
@@ -805,7 +826,7 @@ function callAjax(action,params)
 		   			  }
 		   			  
 		   			  $("#task-action-wrap").html( 
-		   			     swicthButtonAction( data.details.task_id, data.details.status_raw )
+		   			     swicthButtonAction( data.details.task_id, data.details.status_raw, data.details )
 		   			  );
 		   			  
 		   			break;
@@ -930,6 +951,7 @@ function callAjax(action,params)
 		   			   
 		   			   setStorage("background_message", JSON.stringify(data.details.background_message) );
 		   			   setStorage("privacy_policy_link", data.details.privacy_policy_link );
+		   			   setStorage("allow_success_when", data.details.allow_success_when );
 		   			   
 		   			   // set the language id
 		   			   if ( !empty(data.details.app_language)){
@@ -1090,6 +1112,20 @@ function callAjax(action,params)
 				      } else {
 				      	$(".todays_date2").html( '' );
 				      }
+		   			break;
+		   			
+		   			case "verifyDeliveryCode":
+		   			  showToast( data.msg ,'success' );		   			  		   			 
+		   			  setTimeout(function() {
+				  	    popPage();
+				      }, 700 );
+		   			break;
+		   			
+		   			case "uploadProof":
+		   			case "upload_proof_debug":
+		   			   setTimeout(function() {
+				  	       callAjax("TaskDetails",'task_id=' + $(".task_id_details").val() );
+				      }, 700 );
 		   			break;
 		   					   					   			
 		   			default:
@@ -1457,13 +1493,13 @@ function viewTaskDescription(task_id)
 {	
 	kNavigator.pushPage("viewTaskDescription.html", {
 	  animation: 'none',
-	  callback: function(){		 					  	  
+	  callback: function(){	  	
 	  	callAjax("viewTaskDescription",'task_id=' + task_id);
 	  } 
    });
 }
 
-function swicthButtonAction( task_id, status_raw )
+function swicthButtonAction( task_id, status_raw , $task_data )
 {
 	dump(status_raw);
 	var html=''; var action='';
@@ -1503,9 +1539,29 @@ function swicthButtonAction( task_id, status_raw )
 		break;
 		
 		case "inprogress":
-		action='successful';
-		html+='<p><ons-button modifier="large"';
-		html+='onclick="changeTaskStatus('+task_id+','+ "'"+action+"'" +' )" >'+getTrans('Successful','successful')+'</ons-button></p>';
+		
+		$allow_success_when = parseInt(getStorage("allow_success_when"));
+		
+		$delivery_verified = 0;
+		if ((typeof  $task_data.delivery_verified !== "undefined") && ( $task_data.delivery_verified !== null)) {
+			$delivery_verified = $task_data.delivery_verified;
+		}	
+				
+		if($delivery_verified>0){
+			$allow_success_when=0;
+		}
+		
+		if($allow_success_when==1){			
+			html+='<p><ons-button modifier="large"';
+			html+='onclick="TakeProof('+task_id+')" >'+getTrans('Take Picture Proof Of Delivery','take_picture')+'</ons-button></p>';
+		} else if ( $allow_success_when==2 ) {
+			html+='<p><ons-button modifier="large"';
+			html+='onclick="VerifyDeliveryCode('+task_id+')" >'+getTrans('Enter Delivery Code','enter_delivery_code')+'</ons-button></p>';
+		} else {
+			action='successful';
+			html+='<p><ons-button modifier="large"';
+			html+='onclick="changeTaskStatus('+task_id+','+ "'"+action+"'" +' )" >'+getTrans('Successful','successful')+'</ons-button></p>';
+		}
 		
 		action='failed';
 		html+='<p><ons-button modifier="quiet"';
@@ -4592,3 +4648,141 @@ browseLink = function(url){
 		}
 	}
 };
+
+TakeProof = function(task_id){
+		
+	try { 
+		
+		map_navigator = 1;		
+		setStorage('camera_on', 1 );
+		
+		if (isDebug()){			
+			callAjax("upload_proof_debug",'task_id=' + task_id );		
+			return;
+		}			
+				
+		var cam_options = {
+			destinationType: Camera.DestinationType.FILE_URI,
+		    sourceType: Camera.PictureSourceType.CAMERA,
+		    popoverOptions: new CameraPopoverOptions(300, 300, 100, 100, Camera.PopoverArrowDirection.ARROW_ANY)
+		};
+		
+		var app_resize_picture = getStorage("enabled_resize_photo");
+		
+		if ( app_resize_picture==1){
+			cam_options={
+				destinationType: Camera.DestinationType.FILE_URI,
+			    sourceType: Camera.PictureSourceType.CAMERA,
+			    popoverOptions: new CameraPopoverOptions(300, 300, 100, 100, Camera.PopoverArrowDirection.ARROW_ANY),
+			    targetHeight: getStorage("photo_resize_width") ,
+				targetWidth:  getStorage("photo_resize_height")
+			};
+		}
+		
+		navigator.camera.getPicture(function(imageURI){
+		  	uploadProof(imageURI, task_id);
+		}, function(){
+			toastMsg( getTrans("Get photo failed","get_photo_failed") );
+			setStorage('camera_on', 2 );
+			map_navigator = 0;
+		}, cam_options );
+	
+	} catch(err) {
+	   map_navigator = 0;
+       alert(err.message);
+    } 
+};
+
+uploadProof = function(imageURI,$task_id){
+	try {
+		
+	    map_navigator = 0;
+	    setStorage('camera_on', 2 );
+	    
+	    uploadLoader.show();
+	    
+	    setTimeout(function(){
+			$("#progress_bar").attr("value",0);
+			$(".bytes_send").html("0%");
+		}, 1);	
+		
+		
+		 var options = new FileUploadOptions();
+		 options.fileKey = "file";
+		 options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
+		 options.mimeType = "image/jpeg";
+		 	 
+		 var params = {};
+		 params.token = getStorage("kr_token") ;	 
+		 params.task_id = $task_id;
+		 options.params = params;
+	 
+		 options.chunkedMode = false;	
+		 
+		 var headers={'headerParam':'headerValue'};
+		 options.headers = headers;
+		
+		 var ft = new FileTransfer();	 	 	 
+		 
+		 ft.onprogress = function(progressEvent) {
+	     if (progressEvent.lengthComputable) {
+	     	    
+	     	    var loaded_bytes= parseInt(progressEvent.loaded);
+	     	    var total_bytes= parseInt(progressEvent.total);
+	     	    
+	     	    var loaded_percent = (loaded_bytes/total_bytes)*100;	        
+	     	    loaded_percent=Math.ceil(loaded_percent);
+	     	    	        
+		        $("#progress_bar").attr("value",loaded_percent);
+			    $(".bytes_send").html(loaded_percent+"%");
+		        
+		        if(loaded_bytes>=total_bytes){	        	        
+		        	uploadLoader.hide();
+		        	$("#progress_bar").attr("value",0);
+			        $(".bytes_send").html("0%");
+		        }
+	     	    
+		        loadingStatus.setPercentage(progressEvent.loaded / progressEvent.total);	        
+		        
+		    } else {	    		    	
+		        loadingStatus.increment();	        
+		    }
+		 };
+		 	 
+		 ft.upload(imageURI, ajax_url+"/uploadProof", function(result){
+		    
+		    if( $('#uploadLoader').is(':visible') ){
+				uploadLoader.hide();
+				$("#progress_bar").attr("value",0);
+			    $(".bytes_send").html("0%");
+			}    
+		    
+		    var response=explode("|",result.response);	    
+		    toastMsg(response[1]);		   
+		    if ( response[0]=="1" || response[0]==1){		    	
+		        callAjax("TaskDetails",'task_id=' + $task_id );
+		    }
+		    
+		 }, function(error){
+		 	 uploadLoader.hide();
+		     toastMsg( getTrans("An error has occurred: Code","error_occured") + " "+ error.code);
+		 }, options);
+		
+	 } catch(err) {
+       alert(err.message);
+     } 
+};
+
+VerifyDeliveryCode = function(task_id){	
+	showPage2('delivery_verification_code.html','',{
+	  'task_id'	: task_id
+	});
+};
+
+verifyTaskCode = function(){
+	var params = $( ".frm_verify_delivery_code").serialize();
+	params+="&device_id="+ getStorage("device_id");
+	params+="&device_platform="+ device_platform;
+	dump(params);	
+	callAjax("verifyDeliveryCode",params);
+}		

@@ -75,14 +75,14 @@
            <p class="field-wrap">
            <ons-input type="text" name="username" id="username_field"  class="username_field"          
            modifier="underbar" placeholder="Username" data-trn-key="username"
-           autocomplete="new-username"  
+           autocomplete="new-username"  value=""
             float></ons-input>
            </p>
                                  
            <p class="field-wrap">
            <ons-input type="password" name="password" modifier="underbar" class="password_field" 
            placeholder="Password" data-trn-key="password" 
-           autocomplete="new-password"   
+           autocomplete="new-password"   value=""
            float ></ons-input>
            </p>
            
@@ -1213,6 +1213,43 @@
   
 </ons-page>
 </template>    	
+
+
+<ons-template id="delivery_verification_code.html"> 
+<ons-page id="delivery_verification_code" modifier="page_white" >
+
+<ons-toolbar modifier="ktransparent-toolbar">        
+ <div class="left"><ons-back-button></ons-back-button></div>          
+ <div class="center toolbar-title-settings">
+  <span class="trn" data-trn-key="settings" >Verification</span>
+ </div>
+</ons-toolbar>
+
+   
+<form id="frm_verify_delivery_code" class="frm_verify_delivery_code" method="post" onsubmit="return false;">       
+<input type="hidden" name="task_id" id="task_id" class="task_id">
+<div class="inner" style="margin:30px 80px;">
+<ons-icon icon="ion-ios-locked-outline" size="60px"></ons-icon> 
+<p class="trn"  data-trn-key="please_enter_verification_code" >Please enter the verification code we sent to customer</p>
+
+<p class="field-wrap" style="margin-top:30px;">
+<ons-input type="number" name="verification_code" id="verification_code"  class="verification_code"          
+modifier="" placeholder="Enter code" data-trn-key="enter_code" 
+min="6"  max="6" required
+float></ons-input>
+</p>
+
+<p class="text-left"">
+<ons-button modifier="large" onclick="verifyTaskCode();" >
+<span class="trn" data-trn-key="verify">Verify</span>
+</ons-button>          
+</p>              
+
+</div> 
+</form>      
+   
+</ons-page>
+</template>    	       
     
   </body>
 </html>
